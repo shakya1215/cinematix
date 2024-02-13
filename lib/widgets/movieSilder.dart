@@ -1,6 +1,6 @@
-import 'package:flutflix/widgets/constants.dart';
+import 'package:cinematix/widgets/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutflix/detailScreen.dart';
+import 'package:cinematix/detailScreen.dart';
 
 
 class movieSlider extends StatelessWidget {

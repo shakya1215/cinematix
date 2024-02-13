@@ -1,10 +1,10 @@
 // ignore: file_names
-import 'package:flutflix/api/api.dart';
-import 'package:flutflix/widgets/TrendingSLider.dart';
-import 'package:flutflix/widgets/movieSilder.dart';
+import 'package:cinematix/api/api.dart';
+import 'package:cinematix/widgets/TrendingSLider.dart';
+import 'package:cinematix/widgets/movieSilder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutflix/models/movie.dart';
+import 'package:cinematix/models/movie.dart';
 
 
 class HomeScreen extends StatefulWidget {
