@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'NavigationBar.dart';
-import 'login_Screen.dart';
+import 'login_screen.dart';
+
 
 class RegScreen extends StatefulWidget {
   const RegScreen({Key? key}) : super(key: key);

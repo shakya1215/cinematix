@@ -1,14 +1,14 @@
-import 'package:epawelaflutter/api/seeAllScreen.dart';
-import 'package:epawelaflutter/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:epawelaflutter/api/api.dart';
-import 'package:epawelaflutter/models/movie.dart';
-import 'package:epawelaflutter/widgets/TrendingSLider.dart';
-import 'package:epawelaflutter/widgets/movieSilder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'auth.dart'; // Import your authentication class
+import 'api/api.dart';
+import 'api/seeAllScreen.dart';
+import 'auth.dart';
+import 'main.dart';
+import 'models/movie.dart';
+import 'widgets/TrendingSLider.dart';
+import 'widgets/movieSilder.dart'; // Import your authentication class
 
 class tvSeriesScreen extends StatefulWidget {
   const tvSeriesScreen({Key? key}) : super(key: key);

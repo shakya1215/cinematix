@@ -1,7 +1,7 @@
-import 'package:epawelaflutter/RLoginScreen.dart';
-import 'package:epawelaflutter/login_Screen.dart';
-import 'package:epawelaflutter/registrartionScreen.dart';
 import 'package:flutter/material.dart';
+
+import 'login_screen.dart';
+import 'registrartionScreen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

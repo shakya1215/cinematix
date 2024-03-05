@@ -1,11 +1,12 @@
-import 'package:epawelaflutter/main.dart';
-import 'package:epawelaflutter/welcomeScreen.dart' as WelcomeScreen;
+
+import 'welcomeScreen.dart' as WelcomeScreen;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'NavigationBar.dart';
 import 'login_Screen.dart';
+import 'main.dart';
 
 class _SplashScreenState extends State<SplashScreen> {
   @override

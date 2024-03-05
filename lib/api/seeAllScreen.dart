@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:epawelaflutter/detailScreen.dart';
-import 'package:epawelaflutter/api/api.dart';
-import 'package:epawelaflutter/models/movie.dart';
-import 'package:epawelaflutter/widgets/constants.dart';
-
+import '../models/movie.dart';
 import '../newDetail.dart';
+import '../widgets/constants.dart';
+import 'api.dart';
 
 class SeeAllScreen extends StatefulWidget {
   final String title;

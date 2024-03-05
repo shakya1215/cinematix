@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'models/movie.dart';
+import 'widgets/backButton.dart';
 import 'widgets/constants.dart';
 
 class DetailScreen1 extends StatefulWidget {

@@ -1,8 +1,8 @@
 
-import 'package:epawelaflutter/widgets/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../newDetail.dart';
+import 'constants.dart';
 
 
 

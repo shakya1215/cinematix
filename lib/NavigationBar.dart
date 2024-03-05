@@ -1,11 +1,11 @@
-import 'package:epawelaflutter/Home_Screen.dart';
-import 'package:epawelaflutter/mylistscreen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:epawelaflutter/TvSeriesScreen.dart';
 
 
+import 'Home_Screen.dart';
+import 'TvSeriesScreen.dart';
+import 'mylistscreen.dart';
 import 'searchBar.dart';
 
 class mainNavigator extends StatefulWidget {

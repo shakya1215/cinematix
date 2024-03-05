@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:epawelaflutter/models/movie.dart'; // Assuming you have a Movie model
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:epawelaflutter/widgets/constants.dart';
 
+
+import 'models/movie.dart';
 import 'newDetail.dart';
+import 'widgets/constants.dart';
 
 class FavoritesWatchlistScreen extends StatefulWidget {
   @override

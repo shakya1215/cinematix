@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'package:epawelaflutter/models/movie.dart';
+
 import 'package:http/http.dart' as http;
-import 'packa';
-import 'package:epawelaflutter/widgets/constants.dart';
+
+import '../models/movie.dart';
+import '../widgets/constants.dart';
 
 class Api {
   static const String _apiKey = Constants.apiKey;
