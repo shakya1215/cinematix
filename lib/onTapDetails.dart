@@ -1,9 +1,9 @@
-import 'package:cinematix/colors.dart';
-import 'package:cinematix/models/movie.dart';
-import 'package:cinematix/widgets/backButton.dart';
-import 'package:cinematix/widgets/constants.dart';
-import 'package:cinematix/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'colors.dart';
+import 'models/movie.dart';
+import 'widgets/constants.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key, required this.movie});

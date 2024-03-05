@@ -1,5 +1,5 @@
-import 'package:cinematix/detailScreen.dart';
-import 'package:cinematix/widgets/constants.dart';
+import 'package:epawelaflutter/newDetail.dart';
+import 'package:epawelaflutter/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -8,6 +8,7 @@ class TrendingSlider extends StatelessWidget {
   const TrendingSlider({
     super.key, required this.snapshot,
   });
+  
   final AsyncSnapshot snapshot;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class TrendingSlider extends StatelessWidget {
             onTap: (){
               Navigator.push(context, 
                 MaterialPageRoute(
-                  builder: (context) =>   detailScreen(
+                  builder: (context) =>   DetailScreen1(
                     movie: snapshot.data[itemIndex],
                   ),
                 ),

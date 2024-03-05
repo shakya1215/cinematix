@@ -1,7 +1,12 @@
-import 'package:flutflix/searchBar.dart';
+import 'package:epawelaflutter/Home_Screen.dart';
+import 'package:epawelaflutter/mylistscreen.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutflix/Home_Screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:epawelaflutter/TvSeriesScreen.dart';
+
+
+import 'searchBar.dart';
 
 class mainNavigator extends StatefulWidget {
 
@@ -15,7 +20,9 @@ class _mainNavigatorState extends State<mainNavigator> {
 
   List<Widget> _screens =[
     HomeScreen(),
+    tvSeriesScreen(),
     SearchPage(),
+    FavoritesWatchlistScreen(),
 
 
   ];
@@ -43,9 +50,14 @@ class _mainNavigatorState extends State<mainNavigator> {
               tabs: const [
                 GButton(
                   gap: 10,
-                  icon: Icons.home,
-                  text: 'Home' ,
+                  icon: Icons.movie_creation_outlined,
+                  text: 'movie' ,
                   ),
+                GButton(
+                  gap: 10,
+                  icon: Icons.tv_rounded,
+                  text: 'Tv series' ,
+                  ), 
                 GButton(
                   gap: 10,
                   icon: Icons.search,
@@ -53,14 +65,10 @@ class _mainNavigatorState extends State<mainNavigator> {
                   ),
                 GButton(
                   gap: 10,
-                  icon: Icons.bookmark,
+                  icon: Icons.book_rounded,
                   text: 'wishlist' ,
                   ),
-                GButton(
-                  gap: 10,
-                  icon: Icons.settings,
-                  text: 'Settings' ,
-                  ),          
+                        
               ],
 
 

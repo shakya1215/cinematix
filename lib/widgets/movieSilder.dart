@@ -1,6 +1,9 @@
-import 'package:cinematix/widgets/constants.dart';
+
+import 'package:epawelaflutter/widgets/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:cinematix/detailScreen.dart';
+
+import '../newDetail.dart';
+
 
 
 class movieSlider extends StatelessWidget {
@@ -25,7 +28,7 @@ final AsyncSnapshot snapshot;
                 Navigator.push(
                   context,
                    MaterialPageRoute(
-                    builder: (context)=> detailScreen(
+                    builder: (context)=> DetailScreen1(
                       movie: snapshot.data[index]
                     ),
                   ),

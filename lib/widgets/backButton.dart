@@ -1,4 +1,4 @@
-import 'package:flutflix/colors.dart';
+import 'package:epawelaflutter/colors.dart';
 import 'package:flutter/material.dart';
 
 class backButton extends StatelessWidget {
