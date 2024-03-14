@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       create: (context) => KidsModeProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'flutflix',
+        title: 'cinematix',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Color.fromARGB(255, 20, 20, 20),
           useMaterial3: true,

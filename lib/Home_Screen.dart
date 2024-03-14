@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
+                
                 children: [
                   Text(
                     'Kids Mode for movies',
@@ -95,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         loadMovies(); // Reload movies based on the updated kidsMode
                       });
                     },
+                    
                   ),
                 ],
               ),

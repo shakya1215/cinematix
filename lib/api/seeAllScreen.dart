@@ -74,6 +74,15 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       appBar: AppBar(
         title: Text(widget.title),
         backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.filter_list),
+            onPressed: () {
+              // Show dropdown menu for sorting
+              showSortDropdown(context);
+            },
+          ),
+        ],
       ),
       backgroundColor: widget.kidsMode ? const Color.fromARGB(255, 43, 132, 173) : null, // Set background color based on kidsMode
       body: GridView.builder(
@@ -103,4 +112,41 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       ),
     );
   }
+
+  void showSortDropdown(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Sort By'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: Text('Alphabetical (Ascending)'),
+                onTap: () {
+                  // Sort movies alphabetically in ascending order
+                  setState(() {
+                    _allMovies.sort((a, b) => a.title.compareTo(b.title));
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('Alphabetical (Descending)'),
+                onTap: () {
+                  // Sort movies alphabetically in descending order
+                  setState(() {
+                    _allMovies.sort((a, b) => b.title.compareTo(a.title));
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
+
