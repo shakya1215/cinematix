@@ -28,7 +28,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 100.0),
-                  child: Image(image: AssetImage('assets/flutflix.png')),
+                  child: Image(image: AssetImage('myAssets/cinematix.png')),
                 ),
                 const SizedBox(
                   height: 50,
@@ -89,16 +89,6 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Login with Social Media',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                const Image(image: AssetImage('assets/flutflix.png')),
               ],
             ),
           ],

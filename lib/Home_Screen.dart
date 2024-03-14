@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kidsMode ? Color.fromARGB(255, 68, 140, 173) : null, // Set background color based on kidsMode
+      backgroundColor: kidsMode ? Color.fromARGB(255, 68, 140, 173) : null,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(140.0),
         child: Column(
@@ -63,11 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: Image.asset(
-                'assets/flutflix.png',
-                fit: BoxFit.cover,
-                height: 40,
-                filterQuality: FilterQuality.high,
+                'myAssets/SCinematix.png',
+                fit: BoxFit.fill,
+                height: 200, // Increase the height to 150
+                width: 200,  // Increase the width to 150
               ),
+
               centerTitle: true,
               leading: Builder(
                 builder: (context) => IconButton(
@@ -81,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
-                
                 children: [
                   Text(
                     'Kids Mode for movies',
@@ -96,7 +96,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         loadMovies(); // Reload movies based on the updated kidsMode
                       });
                     },
-                    
                   ),
                 ],
               ),

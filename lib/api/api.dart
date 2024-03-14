@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../models/movie.dart';
+import '../models/trailerModel.dart';
 import '../widgets/constants.dart';
 
 class Api {
@@ -84,4 +85,16 @@ class Api {
       throw Exception('Failed to load popular TV shows');
     }
   }
+   Stream<List<TrailerModel>> getTrailerStream(int movieId) async* {
+    final url = Uri.parse('https://api.themoviedb.org/3/movie/$movieId/videos?api_key=${Constants.apiKey}');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final decodedData = json.decode(response.body)['results'] as List;
+      final trailers = decodedData.map((trailerResult) => TrailerModel.fromJson(trailerResult)).toList();
+      yield trailers;
+    } else {
+      throw Exception("Failed to fetch trailers");
+    }
+  }
+
 }

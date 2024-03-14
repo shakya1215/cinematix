@@ -54,11 +54,11 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Image.asset(
-          'assets/flutflix.png',
-          fit: BoxFit.cover,
-          height: 40,
-          filterQuality: FilterQuality.high,
+         title: Image.asset(
+           'myAssets/cinematix.png',
+           fit: BoxFit.cover,
+           height: 40,
+           filterQuality: FilterQuality.high,
         ),
         centerTitle: true,
         leading: Builder(

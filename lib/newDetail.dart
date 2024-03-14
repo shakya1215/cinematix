@@ -1,4 +1,5 @@
 
+import 'package:cinematic/preLoadContent.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -353,7 +354,16 @@ class _DetailScreen1State extends State<DetailScreen1> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10,),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+
+                    height: 300,
+                    child: PreloadContent(widget.movie.id),
+                  ),
                 ],
+                
+
               ),
             ),
           )

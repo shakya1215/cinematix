@@ -44,6 +44,7 @@ dependencies:
   http: ^1.1.0
   provider: ^6.1.2
   shared_preferences: ^2.2.2
+  url_launcher: ^6.2.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -72,8 +73,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-   - assets/flutflix.png
-   - "assets/logo_trial (1).png"
+    - myAssets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

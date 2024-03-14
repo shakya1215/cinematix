@@ -1,4 +1,5 @@
 class Movie {
+  int id;
   String title;
   String backdropPath;
   String originalTitle;
@@ -10,6 +11,7 @@ class Movie {
   String mediaType; // Added attribute
 
   Movie({
+    required this.id,
     required this.title,
     required this.backdropPath,
     required this.originalTitle,
@@ -23,6 +25,7 @@ class Movie {
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
+      id: json["id"] ?? 0,
       title: json["title"] ?? json["original_name"] ?? '',
       backdropPath: json["backdrop_path"] ?? '',
       originalTitle: json["original_title"] ?? '',
