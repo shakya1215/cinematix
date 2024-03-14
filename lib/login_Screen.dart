@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> { // Define state class for L
 
   final FirebaseAuth _auth = FirebaseAuth.instance; // Firebase authentication instance
   final GoogleSignIn googleSignIn = GoogleSignIn( // Google Sign-In instance
-    clientId: '880684106022-la8mvg7vhqcgf8q28e7hhvvv96s5u2du.apps.googleusercontent.com', // Client ID for Google Sign-In
+    clientId: '14844084599-c0ejcpte2m4q5jn66beppai7muua1gm2.apps.googleusercontent.com', // Client ID for Google Sign-In
   );
 
   bool _loading = false; // Flag for showing loading indicator
