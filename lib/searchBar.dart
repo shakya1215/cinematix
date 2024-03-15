@@ -43,6 +43,7 @@ class SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  /// Function to fetch search results from the API
   Future<List<Movie>> searchListFunction(String val, String mediaType) async {
     var searchUrl = mediaType == 'all'
         ? 'https://api.themoviedb.org/3/search/multi?api_key=${Constants.apiKey}&query=$val'

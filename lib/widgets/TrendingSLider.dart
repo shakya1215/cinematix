@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
-import '../newDetail.dart';
-import 'constants.dart';
+import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart'; // Importing the carousel_slider package.
+
+import '../newDetail.dart'; // Importing the DetailScreen1 widget.
+import 'constants.dart'; // Importing the Constants.imagePath value.
 
 class TrendingSlider extends StatelessWidget {
   const TrendingSlider({
@@ -35,6 +36,7 @@ class TrendingSlider extends StatelessWidget {
         itemBuilder: (context, itemIndex, pageViewIndex) {
           return GestureDetector(
             onTap: () {
+              // Navigate to the DetailScreen1 when the image is tapped.
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -50,6 +52,7 @@ class TrendingSlider extends StatelessWidget {
                 height: 300,
                 width: 200,
                 child: Image.network(
+                  // Load the movie poster using the Constants.imagePath.
                   '${Constants.imagePath}${snapshot.data![itemIndex].posterPath}',
                   filterQuality: FilterQuality.high,
                   fit: BoxFit.cover,

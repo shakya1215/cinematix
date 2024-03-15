@@ -19,6 +19,7 @@ class _PreloadContentState extends State<PreloadContent> {
   @override
   void initState() {
     super.initState();
+    // Initialize the stream to fetch trailers for the given movie ID
     _trailersStream = Api().getTrailerStream(widget.movieId);
   }
 
@@ -28,13 +29,16 @@ class _PreloadContentState extends State<PreloadContent> {
       stream: _trailersStream,
       builder: (BuildContext context, AsyncSnapshot<List<TrailerModel>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
+          // Display a loading indicator while fetching trailers
           return CircularProgressIndicator();
         } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else if(snapshot.hasData){
+          // Display an error message if trailers are not found
+          return Text('Did not find a Trailer');
+        } else if (snapshot.hasData) {
+          // Display the trailers if available
           return TrailerPage(snapshot);
-        }
-        else{
+        } else {
+          // Display a message if trailers are not found
           return Text(
             'Did not find a Trailer',
             style: TextStyle(color: Colors.white),
@@ -44,8 +48,6 @@ class _PreloadContentState extends State<PreloadContent> {
     );
   }
 }
-
-
 
 class TrailerPage extends StatefulWidget {
   final AsyncSnapshot<List<TrailerModel>> snapshot;
@@ -78,7 +80,7 @@ class _TrailerPageState extends State<TrailerPage> {
                   margin: EdgeInsets.only(bottom: 5),
                   child: Stack(
                     children: <Widget>[
-                      //Image.network('https://img.youtube.com/vi/Fk4GAsJyZAA/default.jpg'),
+                      // Placeholder for the trailer image
                       Container(
                         width: itemWidth,
                         height: 100,
@@ -94,14 +96,12 @@ class _TrailerPageState extends State<TrailerPage> {
                         ),
                       )
                     ],
-
                   ),
                 ),
+                // Display the trailer name
                 Text(
                   widget.snapshot.data![index].name,
-                  style: TextStyle(
-                    color: Colors.white
-                  ),
+                  style: TextStyle(color: Colors.white),
                 )
               ],
             ),
@@ -111,4 +111,3 @@ class _TrailerPageState extends State<TrailerPage> {
     );
   }
 }
-

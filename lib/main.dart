@@ -55,19 +55,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigateToCorrectScreen() async {
-  // Retrieve the Remember Me preference
-  bool rememberMe = await _getRememberMeFromLocalStorage();
+    // Retrieve the Remember Me preference
+    bool rememberMe = await _getRememberMeFromLocalStorage();
 
-  // Navigate to the appropriate screen based on Remember Me preference
-  if (rememberMe) {
-    // If the user wants to be remembered, navigate to the main navigator
-    Get.off(() => mainNavigator()); // Use Get.off to navigate without back button
-  } else {
-    // If the user doesn't want to be remembered, navigate to the welcome screen
-    Get.off(() => WelcomeScreen.WelcomeScreen()); // Use Get.off to navigate without back button
+    // Navigate to the appropriate screen based on Remember Me preference
+    if (rememberMe) {
+      // If the user wants to be remembered, navigate to the main navigator
+      Get.off(() => MainNavigator()); // Use Get.off to navigate without back button
+    } else {
+      // If the user doesn't want to be remembered, navigate to the welcome screen
+      Get.off(() => WelcomeScreen.WelcomeScreen()); // Use Get.off to navigate without back button
+    }
   }
-}
-
 
   Future<bool> _getRememberMeFromLocalStorage() async {
     // Retrieve the Remember Me preference from local storage

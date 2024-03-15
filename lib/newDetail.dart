@@ -1,12 +1,11 @@
-
-import 'package:cinematic/preLoadContent.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'models/movie.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'widgets/backButton.dart';
 import 'widgets/constants.dart';
+import 'models/movie.dart';
+import 'preLoadContent.dart';
 
 class DetailScreen1 extends StatefulWidget {
   const DetailScreen1({Key? key, required this.movie}) : super(key: key);
@@ -30,6 +29,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     checkWatchlist();
   }
 
+  // Check if the current movie is in the user's favorites
   Future<void> checkFavorites() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -46,6 +46,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     }
   }
 
+  // Check if the current movie is in the user's watchlist
   Future<void> checkWatchlist() async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -62,6 +63,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     }
   }
 
+  // Toggle the favorite status of the movie
   void toggleFavorite() {
     setState(() {
       isFavorite = !isFavorite;
@@ -73,6 +75,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     });
   }
 
+  // Toggle the watchlist status of the movie
   void toggleWatchlist() {
     setState(() {
       isWatchlisted = !isWatchlisted;
@@ -84,6 +87,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     });
   }
 
+  // Add the movie to the user's favorites
   void addToFavorites(Movie movie) {
     try {
       CollectionReference favoritesCollection =
@@ -103,6 +107,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     }
   }
 
+  // Add the movie to the user's watchlist
   void addToWatchlist(Movie movie) {
     try {
       CollectionReference watchlistCollection =
@@ -122,6 +127,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     }
   }
 
+  // Remove the movie from the user's favorites
   void removeFromFavorites(Movie movie) {
     try {
       FirebaseFirestore.instance
@@ -136,6 +142,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
     }
   }
 
+  // Remove the movie from the user's watchlist
   void removeFromWatchlist(Movie movie) {
     try {
       FirebaseFirestore.instance
@@ -157,10 +164,11 @@ class _DetailScreen1State extends State<DetailScreen1> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: backButton(),
+        leading: backButton(), // Custom back button widget
       ),
       body: Stack(
         children: [
+          // Background image of the movie poster
           Image.network(
             '${Constants.imagePath}${widget.movie.posterPath}',
             filterQuality: FilterQuality.high,
@@ -178,6 +186,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // Display the movie poster
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -200,11 +209,11 @@ class _DetailScreen1State extends State<DetailScreen1> {
                             ),
                           ),
                         ),
-                        
                       ],
                     ),
                   ),
                   SizedBox(height: 30),
+                  // Buttons to add/remove from watchlist and favorites
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -253,11 +262,13 @@ class _DetailScreen1State extends State<DetailScreen1> {
                     ],
                   ),
                   SizedBox(height: 20),
+                  // Display movie details
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Movie title
                         Text(
                           widget.movie.title,
                           style: GoogleFonts.belleza(
@@ -266,6 +277,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
                           ),
                         ),
                         SizedBox(height: 15),
+                        // Movie overview
                         Text(
                           widget.movie.overView,
                           style: GoogleFonts.belleza(
@@ -276,6 +288,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
                           textAlign: TextAlign.justify,
                         ),
                         SizedBox(height: 15),
+                        // Release date and rating
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -334,16 +347,14 @@ class _DetailScreen1State extends State<DetailScreen1> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 10),
+                  // Widget to preload additional content related to the movie
                   Container(
                     width: MediaQuery.of(context).size.width,
-
                     height: 300,
                     child: PreloadContent(widget.movie.id),
                   ),
                 ],
-                
-
               ),
             ),
           )

@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart'; // Import Flutter material library for UI components
-import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase authentication library
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import Font Awesome icons library
-import 'package:google_sign_in/google_sign_in.dart'; // Import Google Sign-In library
-import 'NavigationBar.dart'; // Import NavigationBar widget
-import 'registrartionScreen.dart'; // Import RegistrationScreen widget
+import 'package:flutter/material.dart'; // Import the Flutter material library for UI components
+import 'package:firebase_auth/firebase_auth.dart'; // Import the Firebase authentication library
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import the Font Awesome icons library
+import 'package:google_sign_in/google_sign_in.dart'; // Import the Google Sign-In library
+import 'NavigationBar.dart'; // Import the NavigationBar widget
+import 'registrartionScreen.dart'; // Import the RegistrationScreen widget
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences for local storage
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key); // Define LoginScreen widget
+class LoginScreen extends StatefulWidget { // Define the LoginScreen widget
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState(); // Create state for LoginScreen widget
+  _LoginScreenState createState() => _LoginScreenState(); // Create state for the LoginScreen widget
 }
 
-class _LoginScreenState extends State<LoginScreen> { // Define state class for LoginScreen
+class _LoginScreenState extends State<LoginScreen> { // Define the state class for the LoginScreen
   final TextEditingController _emailController = TextEditingController(); // Controller for email text field
   final TextEditingController _passwordController = TextEditingController(); // Controller for password text field
 
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> { // Define state class for L
 
         print('User signed in with Google: ${userCredential.user?.displayName}'); // Print user info for debugging
 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => mainNavigator())); // Navigate to the main screen after successful sign in
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainNavigator())); // Navigate to the main screen after successful sign in
       }
     } catch (e) {
       print('Error signing in with Google: $e'); // Handle authentication errors
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> { // Define state class for L
 
       print('User signed in with email: ${userCredential.user?.email}'); // Print user info for debugging
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => mainNavigator())); // Navigate to the main screen after successful sign in
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainNavigator())); // Navigate to the main screen after successful sign in
     } catch (e) {
       print('Error signing in: $e'); // Handle authentication errors
       ScaffoldMessenger.of(context).showSnackBar( // Display error message to the user

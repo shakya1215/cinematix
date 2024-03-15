@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // Importing necessary packages.
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'models/movie.dart';
-import 'newDetail.dart';
-import 'widgets/constants.dart';
+import 'models/movie.dart'; // Importing custom movie model.
+import 'newDetail.dart'; // Importing DetailScreen1.
+import 'widgets/constants.dart'; // Importing constants.
 
+// A stateful widget representing the search page.
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -14,34 +15,44 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => SearchPageState();
 }
 
+// The state class for the SearchPage widget.
 class SearchPageState extends State<SearchPage> {
-  late List<Movie> searchResult = [];
-  final TextEditingController searchText = TextEditingController();
-  var val1 = "";
-  var mediaType = "all"; // Default media type
+  late List<Movie> searchResult = []; // List to store search results.
+  final TextEditingController searchText = TextEditingController(); // Controller for the search text field.
+  var val1 = ""; // Variable to store the search query.
+  var mediaType = "all"; // Default media type for search.
 
+  // Function to fetch search results from API.
   Future<List<Movie>> searchListFunction(String val, String mediaType) async {
+    // Constructing the search URL based on the media type.
     var searchUrl = mediaType == 'all'
         ? 'https://api.themoviedb.org/3/search/multi?api_key=${Constants.apiKey}&query=$val'
         : 'https://api.themoviedb.org/3/search/$mediaType?api_key=${Constants.apiKey}&query=$val';
+
+    // Sending HTTP GET request to fetch search results.
     final response = await http.get(Uri.parse(searchUrl));
+
+    // Handling the response.
     if (response.statusCode == 200) {
-      final decodedData = json.decode(response.body)['results'] as List;
-      List<Movie> searchResults = [];
+      final decodedData = json.decode(response.body)['results'] as List; // Decoding the response JSON.
+      List<Movie> searchResults = []; // List to store decoded search results.
+
+      // Iterating over each item in the decoded data.
       decodedData.forEach((itemJson) {
         if (itemJson['poster_path'] != null) {
-          searchResults.add(Movie.fromJson(itemJson));
+          searchResults.add(Movie.fromJson(itemJson)); // Adding movie to search results if it has a poster.
         }
         if (mediaType == 'person' || mediaType == 'all' && itemJson['known_for'] != null) {
+          // Adding known movies/TV shows of the person to search results.
           var knownFor = (itemJson['known_for'] as List)
               .map((knownForJson) => Movie.fromJson(knownForJson))
               .toList();
           searchResults.addAll(knownFor);
         }
       });
-      return searchResults;
+      return searchResults; // Returning the search results.
     } else {
-      throw Exception("Something happened");
+      throw Exception("Something happened"); // Throw an exception if there's an error.
     }
   }
 
@@ -129,7 +140,7 @@ class SearchPageState extends State<SearchPage> {
                         val1 = searchText.text;
                         searchResult.clear();
                       });
-                      mediaType = value;
+                      mediaType = value; // Update the media type for search.
                       searchListFunction(val1, mediaType).then((result) {
                         setState(() {
                           searchResult = result;

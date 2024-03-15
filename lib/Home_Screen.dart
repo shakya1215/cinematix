@@ -1,21 +1,23 @@
-import 'dart:async';
 
-import 'package:cinematic/api/seeAllScreen.dart';
-import 'package:cinematic/auth.dart';
-import 'package:connectivity/connectivity.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async'; // Importing necessary Dart libraries.
 
-import 'NavigationBar.dart';
-import 'api/api.dart';
-import 'login_Screen.dart';
-import 'main.dart';
-import 'models/movie.dart';
-import 'widgets/TrendingSLider.dart';
-import 'widgets/movieSilder.dart';
+import 'package:cinematic/api/seeAllScreen.dart'; // Importing seeAllScreen.
+import 'package:cinematic/auth.dart'; // Importing auth.dart.
+import 'package:connectivity/connectivity.dart'; // Importing connectivity package.
+import 'package:firebase_auth/firebase_auth.dart'; // Importing FirebaseAuth.
+import 'package:flutter/material.dart'; // Importing material.dart.
+import 'package:google_fonts/google_fonts.dart'; // Importing Google Fonts package.
+import 'package:shared_preferences/shared_preferences.dart'; // Importing SharedPreferences.
 
+import 'NavigationBar.dart'; // Importing NavigationBar.dart.
+import 'api/api.dart'; // Importing API file.
+import 'login_Screen.dart'; // Importing login_Screen.dart.
+import 'main.dart'; // Importing main.dart.
+import 'models/movie.dart'; // Importing custom Movie model.
+import 'widgets/TrendingSLider.dart'; // Importing TrendingSlider widget.
+import 'widgets/movieSilder.dart'; // Importing movieSlider widget.
+
+// A stateful widget representing the HomeScreen.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -23,20 +25,21 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+// The state class for the HomeScreen widget.
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Movie>> trendingMovies;
-  late Future<List<Movie>> topRatedMovies;
-  late Future<List<Movie>> upComingMovies;
+  late Future<List<Movie>> trendingMovies; // Future to store trending movies.
+  late Future<List<Movie>> topRatedMovies; // Future to store top rated movies.
+  late Future<List<Movie>> upComingMovies; // Future to store upcoming movies.
 
-  final User? user = Auth().currentUser;
-  int page = 1;
+  final User? user = Auth().currentUser; // Getting the current user.
+  int page = 1; // Initializing the page number.
   bool kidsMode = false; // Track kids mode state
-  late StreamSubscription<ConnectivityResult> connectivitySubscription;
+  late StreamSubscription<ConnectivityResult> connectivitySubscription; // Subscription for connectivity changes.
 
   @override
   void initState() {
     super.initState();
-    checkInternetAndLoadMovies();
+    checkInternetAndLoadMovies(); // Check internet connectivity and load movies.
 
     // Subscribe to connectivity changes
     connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
@@ -54,8 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
     connectivitySubscription.cancel();
   }
 
+  // Function to check internet connectivity and load movies accordingly.
   Future<void> checkInternetAndLoadMovies() async {
-    var connectivityResult = await Connectivity().checkConnectivity();
+    var connectivityResult = await Connectivity().checkConnectivity(); // Check connectivity status.
     if (connectivityResult == ConnectivityResult.none) {
       // If there is no internet connection, show an error message
       showDialog(
@@ -77,20 +81,22 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Function to load movies.
   void loadMovies() {
-    trendingMovies = Api().getTrendingMovies(page: page, kidsMode: kidsMode);
-    topRatedMovies = Api().getTopRatedMovies(page: page, kidsMode: kidsMode);
-    upComingMovies = Api().getUpComingMovies(page: page, kidsMode: kidsMode);
+    trendingMovies = Api().getTrendingMovies(page: page, kidsMode: kidsMode); // Load trending movies.
+    topRatedMovies = Api().getTopRatedMovies(page: page, kidsMode: kidsMode); // Load top rated movies.
+    upComingMovies = Api().getUpComingMovies(page: page, kidsMode: kidsMode); // Load upcoming movies.
     // Force rebuild of widget tree to reload movies
     setState(() {});
   }
 
+  // Function to sign out the user.
   Future<void> signOut() async {
     // Set Remember Me preference to false when the user logs out
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('remember_me', false);
 
-    await Auth().signOut();
+    await Auth().signOut(); // Sign out the user.
     // Navigate to LoginPage after sign out
     Navigator.pushReplacement(
       context,
@@ -113,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'myAssets/SCinematix.png',
                 fit: BoxFit.fill,
                 height: 200, // Increase the height to 150
-                width: 200,  // Increase the width to 150
+                width: 200, // Increase the width to 150
               ),
               centerTitle: true,
               leading: Builder(
@@ -161,7 +167,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      kidsMode ? 'Kids: Action Anime' : 'Trending movies',
+                     
+
+ kidsMode ? 'Kids: Action Anime' : 'Trending movies',
                       style: GoogleFonts.aBeeZee(
                         fontSize: 25,
                       ),
@@ -251,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       } else if (snapshot.hasData) {
                         final data = snapshot.data;
-                        return movieSlider(snapshot: snapshot);
+                        return MovieSlider(snapshot: snapshot);
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }
@@ -278,8 +286,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => SeeAllScreen(
                               title: kidsMode ? 'Kids: Romantic Anime' : 'Upcoming Movies',
-                              category: 'upcoming', 
-                              kidsMode: kidsMode,// Update to match the category
+                              category: 'upcoming',
+                              kidsMode: kidsMode, // Update to match the category
                             ),
                           ),
                         );
@@ -301,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       } else if (snapshot.hasData) {
                         final data = snapshot.data;
-                        return movieSlider(snapshot: snapshot);
+                        return MovieSlider(snapshot: snapshot);
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }
@@ -317,11 +325,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-        
             ListTile(
               title: Text('Logout'),
               leading: Icon(Icons.logout),
-              onTap: signOut,
+              onTap: signOut, // Call signOut function when tapped.
             ),
           ],
         ),

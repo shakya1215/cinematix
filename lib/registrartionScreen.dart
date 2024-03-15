@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'NavigationBar.dart';
 import 'login_screen.dart';
 
-
 class RegScreen extends StatefulWidget {
   const RegScreen({Key? key}) : super(key: key);
 
@@ -19,6 +18,7 @@ class _RegScreenState extends State<RegScreen> {
 
   Future<void> signUpWithEmailAndPassword(BuildContext context) async {
     try {
+      // Attempt to create a new user with the provided email and password
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _controllerEmail.text,
         password: _controllerPassword.text,
@@ -31,7 +31,7 @@ class _RegScreenState extends State<RegScreen> {
       });
       // Registration successful, navigate to the main screen or perform other actions
       // For example, you can navigate to the main screen:
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => mainNavigator()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainNavigator()));
     } on FirebaseAuthException catch (e) {
       // Handle registration errors
       setState(() {
@@ -139,6 +139,7 @@ class _RegScreenState extends State<RegScreen> {
                         ),
                         TextButton(
                           onPressed: () {
+                            // Navigate to the login screen
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -156,6 +157,7 @@ class _RegScreenState extends State<RegScreen> {
                       ],
                     ),
                   ),
+                  // Display error message if registration fails
                   if (errorMessage != null) Text(errorMessage!),
                 ],
               ),

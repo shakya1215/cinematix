@@ -25,18 +25,19 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
   final User? user = Auth().currentUser;
   int page = 1;
   
- Future<void> signOut() async {
-  // Set Remember Me preference to false when the user logs out
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('remember_me', false);
+  /// Function to sign out the current user
+  Future<void> signOut() async {
+    // Set Remember Me preference to false when the user logs out
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('remember_me', false);
 
-  await Auth().signOut();
-  // Navigate to LoginPage after sign out
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => SplashScreen()),
-  );
-}
+    await Auth().signOut();
+    // Navigate to SplashScreen after sign out
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => SplashScreen()),
+    );
+  }
 
   @override
   void initState() {
@@ -45,8 +46,6 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
     topRatedTvSeries = Api().getTopRatedTv(page: page);
     popularTvSeries = Api().getPopularTv(page: page);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +56,9 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
         title: Image.asset(
           'myAssets/SCinematix.png',
           fit: BoxFit.fill,
-           height: 200, // Increase the height to 150
-           width: 200,  // Increase the width to 150
-         ),
+          height: 200, // Increase the height to 150
+          width: 200,  // Increase the width to 150
+        ),
         centerTitle: true,
         leading: Builder(
           builder: (context) => IconButton(
@@ -82,7 +81,7 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Trending Tv Series',
+                      'Trending Tv Show',
                       style: GoogleFonts.aBeeZee(
                         fontSize: 25,
                       ),
@@ -97,7 +96,7 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => SeeAllScreen(
-                              title: 'Trending Tv Series',
+                              title: 'Trending Tv Shows',
                               category: 'trending_tv', // Pass the list of trending movies
                             ),
                           ),
@@ -133,7 +132,7 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Top Rated Tv Series',
+                      'Top Rated Tv Shows',
                       style: GoogleFonts.aBeeZee(
                         fontSize: 25,
                       ),
@@ -172,7 +171,7 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
                         );
                       } else if (snapshot.hasData) {
                         final data = snapshot.data;
-                        return movieSlider(snapshot: snapshot);
+                        return MovieSlider(snapshot: snapshot);
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }
@@ -199,7 +198,7 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => SeeAllScreen(
-                              title: 'Popular Tv Series',
+                              title: 'Popular Tv shows',
                               category: 'popular_tv', // Pass the list of trending movies
                             ),
                           ),
@@ -222,7 +221,7 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
                         );
                       } else if (snapshot.hasData) {
                         final data = snapshot.data;
-                        return movieSlider(snapshot: snapshot);
+                        return MovieSlider(snapshot: snapshot);
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }

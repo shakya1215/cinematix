@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // If there is internet connection, proceed with navigation
       bool rememberMe = await _getRememberMeFromLocalStorage();
       if (rememberMe) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => mainNavigator()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainNavigator()));
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen.WelcomeScreen()));
       }
