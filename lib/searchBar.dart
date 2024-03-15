@@ -144,7 +144,7 @@ class SearchPageState extends State<SearchPage> {
                         value: 'tv',
                       ),
                       PopupMenuItem(
-                        child: Text('By Person'),
+                        child: Text('By Actor Name'),
                         value: 'person',
                       ),
                     ],

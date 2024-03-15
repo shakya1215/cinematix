@@ -200,27 +200,7 @@ class _DetailScreen1State extends State<DetailScreen1> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 50, top: 70),
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: Colors.red,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.red.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 8,
-                              ),
-                            ],
-                          ),
-                          child: Icon(
-                            Icons.play_arrow,
-                            color: Colors.white,
-                            size: 60,
-                          ),
-                        )
+                        
                       ],
                     ),
                   ),
