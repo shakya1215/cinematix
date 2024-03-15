@@ -85,6 +85,8 @@ class Api {
       throw Exception('Failed to load popular TV shows');
     }
   }
+
+
    Stream<List<TrailerModel>> getTrailerStream(int movieId) async* {
     final url = Uri.parse('https://api.themoviedb.org/3/movie/$movieId/videos?api_key=${Constants.apiKey}');
     final response = await http.get(url);

@@ -102,7 +102,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              const Image(image: AssetImage('assets/flutflix.png')),
+              const Image(image: AssetImage('myAssets/cinematix.png')),
             ],
           ),
         ),

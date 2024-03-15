@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:connectivity/connectivity.dart';
 
 import 'models/movie.dart';
 import 'newDetail.dart';
@@ -9,18 +11,17 @@ import 'widgets/constants.dart';
 
 class FavoritesWatchlistScreen extends StatefulWidget {
   @override
-  _FavoritesWatchlistScreenState createState() =>
-      _FavoritesWatchlistScreenState();
+  _FavoritesWatchlistScreenState createState() => _FavoritesWatchlistScreenState();
 }
 
-class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen>
-    with TickerProviderStateMixin {
+class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen> with TickerProviderStateMixin {
   TabController? _tabController;
   bool isFavoritesSelected = false;
   bool isWatchlistSelected = false;
   List<Movie> favorites = [];
   List<Movie> watchlist = [];
   User? _user = FirebaseAuth.instance.currentUser;
+  late StreamSubscription<ConnectivityResult> connectivitySubscription;
 
   @override
   void initState() {
@@ -28,25 +29,30 @@ class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen>
     _tabController = TabController(length: 2, vsync: this);
     fetchFavorites();
     fetchWatchlist();
+
+    // Subscribe to connectivity changes
+    connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+        // If internet connectivity is available, reload lists
+        fetchFavorites();
+        fetchWatchlist();
+      }
+    });
   }
 
   @override
   void dispose() {
     _tabController?.dispose();
+    // Cancel the connectivity subscription to prevent memory leaks
+    connectivitySubscription.cancel();
     super.dispose();
   }
 
   Future<void> fetchFavorites() async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(_user!.uid)
-          .collection('favorites')
-          .get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users').doc(_user!.uid).collection('favorites').get();
       setState(() {
-        favorites = querySnapshot.docs
-            .map((doc) => Movie.fromJson(doc.data() as Map<String, dynamic>))
-            .toList();
+        favorites = querySnapshot.docs.map((doc) => Movie.fromJson(doc.data() as Map<String, dynamic>)).toList();
       });
     } catch (e) {
       print('Error fetching favorites: $e');
@@ -55,15 +61,9 @@ class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen>
 
   Future<void> fetchWatchlist() async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(_user!.uid)
-          .collection('watchlist')
-          .get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users').doc(_user!.uid).collection('watchlist').get();
       setState(() {
-        watchlist = querySnapshot.docs
-            .map((doc) => Movie.fromJson(doc.data() as Map<String, dynamic>))
-            .toList();
+        watchlist = querySnapshot.docs.map((doc) => Movie.fromJson(doc.data() as Map<String, dynamic>)).toList();
       });
     } catch (e) {
       print('Error fetching watchlist: $e');
@@ -72,12 +72,7 @@ class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen>
 
   void removeFromFavorites(Movie movie) {
     try {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(_user!.uid)
-          .collection('favorites')
-          .doc(movie.title)
-          .delete();
+      FirebaseFirestore.instance.collection('users').doc(_user!.uid).collection('favorites').doc(movie.title).delete();
       setState(() {
         favorites.removeWhere((element) => element.title == movie.title);
       });
@@ -89,12 +84,7 @@ class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen>
 
   void removeFromWatchlist(Movie movie) {
     try {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(_user!.uid)
-          .collection('watchlist')
-          .doc(movie.title)
-          .delete();
+      FirebaseFirestore.instance.collection('users').doc(_user!.uid).collection('watchlist').doc(movie.title).delete();
       setState(() {
         watchlist.removeWhere((element) => element.title == movie.title);
       });

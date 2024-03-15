@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart';
 
-import 'login_screen.dart';
+import 'login_Screen.dart';
 import 'registrartionScreen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -28,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 100.0),
-                  child: Image(image: AssetImage('myAssets/cinematix.png')),
+                  child: Image(image: AssetImage( 'myAssets/SCinematix.png')),
                 ),
                 const SizedBox(
                   height: 50,
@@ -89,6 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
               ],
             ),
           ],

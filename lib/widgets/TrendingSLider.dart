@@ -5,14 +5,20 @@ import '../newDetail.dart';
 import 'constants.dart';
 
 class TrendingSlider extends StatelessWidget {
-
   const TrendingSlider({
-    super.key, required this.snapshot,
-  });
-  
+    Key? key,
+    required this.snapshot,
+  }) : super(key: key);
+
   final AsyncSnapshot snapshot;
+
   @override
   Widget build(BuildContext context) {
+    // Check if snapshot data is null or empty
+    if (snapshot.data == null || snapshot.data.isEmpty) {
+      return SizedBox.shrink(); // Return an empty SizedBox if no data
+    }
+
     return SizedBox(
       width: double.infinity,
       child: CarouselSlider.builder(
@@ -22,40 +28,36 @@ class TrendingSlider extends StatelessWidget {
           autoPlay: true,
           viewportFraction: 0.55,
           autoPlayCurve: Curves.fastOutSlowIn,
-          enlargeCenterPage: true,//enlarging the center page
+          enlargeCenterPage: true,
           pageSnapping: true,
-          autoPlayAnimationDuration: const Duration(
-            seconds: 2
-          )
-        
+          autoPlayAnimationDuration: const Duration(seconds: 2),
         ),
-        itemBuilder:(context,itemIndex ,pageViewIndex){
+        itemBuilder: (context, itemIndex, pageViewIndex) {
           return GestureDetector(
-            onTap: (){
-              Navigator.push(context, 
+            onTap: () {
+              Navigator.push(
+                context,
                 MaterialPageRoute(
-                  builder: (context) =>   DetailScreen1(
-                    movie: snapshot.data[itemIndex],
+                  builder: (context) => DetailScreen1(
+                    movie: snapshot.data![itemIndex], // Access data with index
                   ),
                 ),
-              
               );
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
                 height: 300,
-                width: 200, // Set width to fill available space
-                child : Image.network(
+                width: 200,
+                child: Image.network(
+                  '${Constants.imagePath}${snapshot.data![itemIndex].posterPath}',
                   filterQuality: FilterQuality.high,
-                  fit:BoxFit.cover,
-                  '${Constants.imagePath}${snapshot.data[itemIndex].posterPath}'
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
           );
-        }
-         
+        },
       ),
     );
   }

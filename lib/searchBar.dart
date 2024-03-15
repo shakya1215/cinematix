@@ -1,7 +1,10 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'models/movie.dart';
 import 'newDetail.dart';
 import 'widgets/constants.dart';
@@ -18,6 +21,27 @@ class SearchPageState extends State<SearchPage> {
   final TextEditingController searchText = TextEditingController();
   var val1 = "";
   var mediaType = "all"; // Default media type
+  late StreamSubscription<ConnectivityResult> connectivitySubscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Subscribe to connectivity changes
+    connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+        // If internet connectivity is available, reload search results
+        searchListFunction(val1, mediaType);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the connectivity subscription to prevent memory leaks
+    connectivitySubscription.cancel();
+    super.dispose();
+  }
 
   Future<List<Movie>> searchListFunction(String val, String mediaType) async {
     var searchUrl = mediaType == 'all'
@@ -38,6 +62,11 @@ class SearchPageState extends State<SearchPage> {
           searchResults.addAll(knownFor);
         }
       });
+
+      setState(() {
+        searchResult = searchResults;
+      });
+
       return searchResults;
     } else {
       throw Exception("Something happened");
@@ -68,11 +97,7 @@ class SearchPageState extends State<SearchPage> {
                     val1 = value;
                   });
                   // Trigger search function when user enters text
-                  searchListFunction(val1, mediaType).then((result) {
-                    setState(() {
-                      searchResult = result;
-                    });
-                  });
+                  searchListFunction(val1, mediaType);
                 },
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
@@ -129,11 +154,7 @@ class SearchPageState extends State<SearchPage> {
                         searchResult.clear();
                       });
                       mediaType = value;
-                      searchListFunction(val1, mediaType).then((result) {
-                        setState(() {
-                          searchResult = result;
-                        });
-                      });
+                      searchListFunction(val1, mediaType);
                     },
                   ),
                   hintText: 'Search',

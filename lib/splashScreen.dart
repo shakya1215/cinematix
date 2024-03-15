@@ -1,4 +1,7 @@
 
+import 'package:cinematic/main.dart';
+import 'package:connectivity/connectivity.dart';
+
 import 'welcomeScreen.dart' as WelcomeScreen;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'NavigationBar.dart';
 import 'login_Screen.dart';
-import 'main.dart';
-
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
@@ -16,16 +17,31 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigateToCorrectScreen() async {
-    // Retrieve the Remember Me preference
-    bool rememberMe = await _getRememberMeFromLocalStorage();
-
-    // Navigate to the appropriate screen based on Remember Me preference
-    if (rememberMe) {
-      // If the user wants to be remembered, navigate to the main navigator
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => mainNavigator()));
+    // Check internet connectivity
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      // If there is no internet connection, show an error message
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('No Internet Connection'),
+          content: Text('Please check your internet connection and try again.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
     } else {
-      // If the user doesn't want to be remembered, navigate to the welcome screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen.WelcomeScreen()));
+      // If there is internet connection, proceed with navigation
+      bool rememberMe = await _getRememberMeFromLocalStorage();
+      if (rememberMe) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => mainNavigator()));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen.WelcomeScreen()));
+      }
     }
   }
 

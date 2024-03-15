@@ -54,12 +54,12 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-         title: Image.asset(
-           'myAssets/cinematix.png',
-           fit: BoxFit.cover,
-           height: 40,
-           filterQuality: FilterQuality.high,
-        ),
+        title: Image.asset(
+          'myAssets/SCinematix.png',
+          fit: BoxFit.fill,
+           height: 200, // Increase the height to 150
+           width: 200,  // Increase the width to 150
+         ),
         centerTitle: true,
         leading: Builder(
           builder: (context) => IconButton(
@@ -238,12 +238,6 @@ class _tvSeriesScreenState extends State<tvSeriesScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
             ListTile(
               title: Text('Logout'),
               leading: Icon(Icons.logout),

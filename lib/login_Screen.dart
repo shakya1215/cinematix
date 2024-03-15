@@ -139,11 +139,7 @@ class _LoginScreenState extends State<LoginScreen> { // Define state class for L
                       ),
                     ),
                     const SizedBox(height: 50),
-                    ElevatedButton.icon( // Google Sign-In button
-                      onPressed: () => _signInWithGoogle(context),
-                      icon: Icon(FontAwesomeIcons.google), // Icon widget for Google icon
-                      label: Text('Sign in with Google'), // Text widget for button label
-                    ),
+                    
                     const SizedBox(height: 20),
                     TextField( // Email text field
                       controller: _emailController, // Controller to control the text field
@@ -194,23 +190,7 @@ class _LoginScreenState extends State<LoginScreen> { // Define state class for L
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          // Handle forgot password
-                        },
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
+                    ),                    
                     const SizedBox(height: 20),
                     ElevatedButton( // Sign-In button
                       onPressed: () {
